@@ -1,6 +1,7 @@
 package com.lion.bookstore_manager.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,17 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.lion.bookstore_manager.MainActivity
 import com.lion.bookstore_manager.R
+import com.lion.bookstore_manager.book_repository.BookRepository
 import com.lion.bookstore_manager.databinding.ActivityMainBinding
 import com.lion.bookstore_manager.databinding.FragmentMainBinding
 import com.lion.bookstore_manager.databinding.RowMainBinding
+import com.lion.bookstore_manager.util.BookType
 import com.lion.bookstore_manager.util.FragmentName
+import com.lion.bookstore_manager.view_model.BookViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
-
-    var testList = MutableList(50){ it+1 }
-
-
-
+    var bookList = mutableListOf<BookViewModel>()
 
     lateinit var fragmentMainBinding: FragmentMainBinding
 
@@ -37,6 +41,8 @@ class MainFragment : Fragment() {
         settingToolbarMain()
         settingFabMain()
         settingRecyclerView()
+        refreshRecyclerView()
+        toggleListener()
         return fragmentMainBinding.root
     }
 
@@ -79,6 +85,67 @@ class MainFragment : Fragment() {
         }
     }
 
+    // 데이터베이스에서 전체 항목 데이터를 읽어와 RecyclerView 갱신한다.
+    fun recyclerAllTypeView() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val work1 = async(Dispatchers.IO){
+                // 데이터를 읽어온다.
+                BookRepository.selectBookInfoAll(mainActivity)
+            }
+            bookList = work1.await()
+            // RecyclerView를 갱신
+            Log.d("test100", "${bookList}")
+            fragmentMainBinding.recyclerViewMainFragment.adapter?.notifyDataSetChanged()
+        }
+    }
+
+        // 데이터베이스에서 지정 타입 데이터를 읽어와 RecyclerView 갱신한다.
+    fun refreshRecyclerView() {
+        // Log.d("test100", "refreshRecyclerView()실행")
+        fragmentMainBinding.apply {
+            CoroutineScope(Dispatchers.Main).launch {
+                val type = when (toggleGroupTypeMainFragment.checkedButtonId) {
+                    R.id.buttonTypeAllMainFragment->BookType.BOOK_TYPE_ALL.number
+                    R.id.buttonTypeLiteratureMainFragment->BookType.BOOK_TYPE_Literature.number
+                    R.id.buttonTypeHumanityMainFragment->BookType.BOOK_TYPE_HUMANITY.number
+                    R.id.buttonTypeNatureMainFragment->BookType.BOOK_TYPE_NATURE.number
+                    else->BookType.BOOK_TYPE_ETC.number
+                }
+                if(type == BookType.BOOK_TYPE_ALL.number){
+                    recyclerAllTypeView()
+                }else{
+                   // Log.d("test100", "type : ${type}")
+
+                    val work1 = async(Dispatchers.IO) {
+                        // 데이터를 읽어온다.
+                        BookRepository.selectBookInfoByType(mainActivity,type)
+                    }
+                    bookList = work1.await()
+                    // Log.d("test100", "bookList : ${bookList}")
+
+                    // RecyclerView를 갱신
+                    recyclerViewMainFragment.adapter?.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    fun toggleListener() {
+        fragmentMainBinding.apply {
+            toggleGroupTypeMainFragment.addOnButtonCheckedListener { group, checkedId, isChecked ->
+                when (checkedId) {
+                    R.id.buttonTypeAllMainFragment->refreshRecyclerView()
+                    R.id.buttonTypeLiteratureMainFragment->refreshRecyclerView()
+                    R.id.buttonTypeHumanityMainFragment->refreshRecyclerView()
+                    R.id.buttonTypeNatureMainFragment->refreshRecyclerView()
+                    else->refreshRecyclerView()
+                }
+            }
+        }
+    }
+
+
+
     // RecyclerView의 어뎁터
     inner class RecyclerViewMainAdapter : RecyclerView.Adapter<RecyclerViewMainAdapter.ViewHolderMain>(){
         // ViewHolder
@@ -87,7 +154,7 @@ class MainFragment : Fragment() {
             override fun onClick(v: View?) {
                 // 사용자가 누른 동물 인덱스 담아준다.
                 val dataBundle = Bundle()
-               // dataBundle.putInt("animalIdx", testList[adapterPosition].)
+                dataBundle.putInt("bookIdx", bookList[adapterPosition].bookIdx)
                 // ShowFragment로 이동한다.
               mainActivity.replaceFragment(FragmentName.SHOW_FRAGMENT, true,true, dataBundle)
             }
@@ -119,11 +186,11 @@ class MainFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return testList.size
+            return bookList.size
         }
 
         override fun onBindViewHolder(holder: ViewHolderMain, position: Int) {
-            holder.rowMainBinding.textViewRowMain.text = testList[position].toString()
+            holder.rowMainBinding.textViewRowMain.text = " ${bookList[position].bookName}"
         }
     }
 

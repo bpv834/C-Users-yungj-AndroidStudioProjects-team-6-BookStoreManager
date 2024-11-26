@@ -33,18 +33,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:checkedButton="@+id/buttonTypePoemAndEssayInputFragment"
+            app:checkedButton="@+id/buttonTypeLiteratureInputFragment"
             app:singleSelection="true"
             tools:layout_marginTop="10dp"
             app:selectionRequired="true"
             >
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonTypePoemAndEssayInputFragment"
+                android:id="@+id/buttonTypeLiteratureInputFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시/에세이" />
+                android:text="문학" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonTypeHumanityInputFragment"
@@ -56,7 +56,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonNatureInputFragment"
+                android:id="@+id/buttonTypeNatureInputFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,20 +119,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonAddImgInputFragment"
+                android:id="@+id/buttonTakePictureInputFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="이미지 추가" />
+                android:layout_weight="1"
+                android:text="사진찍어 올리기" />
+
+            <Button
+                android:id="@+id/buttonGetImgInputFragment"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="앨범에서 가져오기" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <ImageView
                 android:id="@+id/imageViewInputFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:src="@tools:sample/avatars" />
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher_foreground" />
+
         </LinearLayout>
 
     </LinearLayout>

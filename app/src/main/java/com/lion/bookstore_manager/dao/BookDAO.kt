@@ -14,24 +14,24 @@ interface BookDAO {
     fun insertBookData(bookVO: BookVO)
 
     // 도서 정보를 가져오는 메서드
-    @Query("""
-        select * from BookTable 
-        order by bookIdx desc""")
-    fun selectBookDataAll() : List<BookVO>
+    @Query("select * from BookTable order by bookIdx desc")
+    fun selectBookDataAll(): List<BookVO>
+
+    // 도서 정보를 가져오는 메서드
+    @Query(" SELECT * FROM BookTable WHERE bookType = :bookType ORDER BY bookIdx DESC")
+    fun selectBookDataByType(bookType: Int): List<BookVO>
 
     // 도서 한권 정보를 가져오는 메서드
-    @Query("""
-        select * from BookTable
-        where bookIdx = :bookIdx
-    """)
-    fun selectBookDataByBookIdx(bookIdx:Int) : BookVO
+    @Query(" select * from BookTable where bookIdx = :bookIdx")
+    fun selectBookDataByBookIdx(bookIdx: Int): BookVO
 
     // 도서 정보를 삭제하는 메서드
-    @Delete
-    fun deleteBookData(bookVO: BookVO)
+    @Query(" delete from BookTable where bookIdx = :bookIdx")
+    fun deleteBookData(bookIdx: Int)
 
     // 동물 정보를 수정하는 메서드
     @Update
     fun updateBookData(bookVO: BookVO)
+
 
 }

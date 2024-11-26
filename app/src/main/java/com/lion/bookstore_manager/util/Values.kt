@@ -16,16 +16,14 @@ enum class FragmentName(var number:Int, var str:String){
 enum class BookType(var number: Int, var str: String){
     // 전체
     BOOK_TYPE_ALL(1, "전체"),
-    // 소설
-    BOOK_TYPE_FICTION(2, "소설"),
-    // 시/에세이
-    BOOK_TYPE_POEM_AND_ESSAY(3, "시/에세이"),
+    // 문학
+    BOOK_TYPE_Literature(2, "문학"),
     // 인문
-    BOOK_TYPE_HUMANITY(4, "인문"),
+    BOOK_TYPE_HUMANITY(3, "인문"),
     // 자연
-    BOOK_TYPE_NATURE(5, "자연"),
+    BOOK_TYPE_NATURE(4, "자연"),
     // 기타
-    BOOK_TYPE_ETC(6, "기타"),
+    BOOK_TYPE_ETC(5, "기타"),
 
 }
 

@@ -28,12 +28,13 @@
             app:menu="@menu/menu_map_main_fragment" />
 
         <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleGroupTypeInputFragment"
+            android:id="@+id/toggleGroupTypeMainFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:singleSelection="true"
             app:checkedButton="@+id/buttonTypeAllMainFragment"
+            app:selectionRequired="true"
             >
 
             <com.google.android.material.button.MaterialButton
@@ -47,15 +48,15 @@
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonTypeFictionInputFragment"
+                android:id="@+id/buttonTypeLiteratureMainFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시/에세이"
+                android:text="문학"
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonTypePoemAndEssayInputFragment"
+                android:id="@+id/buttonTypeHumanityMainFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +66,7 @@
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonTypeHumanityMainFragment"
+                android:id="@+id/buttonTypeNatureMainFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,7 +76,7 @@
                 />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonTypeNatureMainFragment"
+                android:id="@+id/buttonTypeEtcMainFragment"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
