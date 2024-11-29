@@ -53,4 +53,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    implementation(files("libs/tmap-sdk-1.6.aar"))
+    implementation(files("libs/vsm-tmap-sdk-v2-android-1.7.23.aar"))
 }
