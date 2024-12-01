@@ -11,21 +11,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity.LOCATION_SERVICE
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.lion.bookstore_manager.MainActivity
-import com.lion.bookstore_manager.R
 import com.lion.bookstore_manager.databinding.FragmentLocationBinding
 import com.skt.tmap.TMapView
-import com.skt.tmap.vsm.camera.CameraUpdateFactory
 
 
 class LocationFragment : Fragment() {
